@@ -5,16 +5,20 @@ Aplikasi web cuaca interaktif yang menampilkan informasi cuaca real-time dengan 
 ## 📸 Screenshot
 
 ### Light Mode
-![Light Mode](Screenshot%202025-12-01%20204554.png)
+<img width="1906" height="918" alt="Screenshot 2025-12-01 204554" src="https://github.com/user-attachments/assets/8df5363e-237c-4af2-8b24-3ba9b78b9b23" />
 
 ### Dark Mode
-![Dark Mode](Screenshot%202025-12-01%20204605.png)
+<img width="1909" height="914" alt="Screenshot 2025-12-01 204605" src="https://github.com/user-attachments/assets/b1a88c8d-4dd7-485b-8978-08f3cc0eed58" />
 
 ### Search Feature
-![Search Feature](Screenshot%202025-12-01%20204638.png)
+<img width="1919" height="920" alt="Screenshot 2025-12-01 204638" src="https://github.com/user-attachments/assets/4c612995-7fcd-41a8-bf8a-123a224c693d" />
 
 ### 5-Day Forecast
-![5-Day Forecast](Screenshot%202025-12-01%20204814.png)
+<img width="1919" height="917" alt="Screenshot 2025-12-01 204814" src="https://github.com/user-attachments/assets/5716f6c6-52cc-4c75-8406-8a3f4f65c0a5" />
+
+### Keterangan Sedang Memuat
+<img width="1911" height="918" alt="Screenshot 2025-12-01 204855" src="https://github.com/user-attachments/assets/ea243e5a-7cec-484c-8df5-b6bcb5e78c4f" />
+
 
 ## ✨ Fitur Utama
 
@@ -157,7 +161,7 @@ judul 6/
 ├── script.js               # Logic aplikasi dan API calls (661 lines)
 ├── 20251115_142815.jpg     # Background image untuk light mode
 ├── 20251115231535019.jpg   # Background image untuk dark mode
-├── Screenshot *.png        # Screenshot untuk dokumentasi
+├── Gambar Hasil            # Folder screenshot untuk dokumentasi
 └── README.md               # File dokumentasi ini
 ```
 
