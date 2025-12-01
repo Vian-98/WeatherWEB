@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Weather Dashboard - Aplikasi prakiraan cuaca real-time">
-    <title>Weather Dashboard - Prakiraan Cuaca</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='35' r='20' fill='%23FDB813'/%3E%3Cpath d='M20 60 Q35 50, 50 60 T80 60' stroke='%234A90E2' stroke-width='8' fill='none'/%3E%3Cpath d='M15 75 Q25 68, 35 75 T55 75' stroke='%2387CEEB' stroke-width='5' fill='none'/%3E%3C/svg%3E">
+    <meta name="description" content="VIAN Weather - Informasi Cuaca Real-time">
+    <title>VIAN Weather - Tugas Akhir PPW Judul 6</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,12 +14,7 @@
     <div class="container">
         <header class="header">
             <div class="logo">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                    <circle cx="20" cy="15" r="8" fill="#FDB813"/>
-                    <path d="M10 25 Q15 20, 20 25 T30 25" stroke="#4A90E2" stroke-width="3" fill="none"/>
-                    <path d="M8 30 Q12 26, 16 30 T24 30" stroke="#87CEEB" stroke-width="2" fill="none"/>
-                </svg>
-                <h1>Weather Dashboard</h1>
+                <h1>VIAN Weather</h1>
             </div>
             <div class="header-controls">
                 <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
@@ -90,86 +84,101 @@
         </div>
         <div id="error-message" class="error-message hidden"></div>
         <main class="main-content">
-            <section class="current-weather card">
-                <div class="current-header">
-                    <div class="location-info">
-                        <h2 id="current-location">-</h2>
-                        <p id="current-date">-</p>
-                    </div>
-                    <button id="favorite-btn" class="favorite-btn" aria-label="Add to favorites">
-                        <svg class="heart-outline" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                        </svg>
-                        <svg class="heart-filled" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="weather-main">
-                    <div class="temperature-section">
-                        <div class="weather-icon-large" id="current-icon">
-                            <img src="" alt="Weather icon">
+            <div class="content-left">
+                <section class="current-weather card">
+                    <div class="current-header">
+                        <div class="location-info">
+                            <h2 id="current-location">-</h2>
+                            <p id="current-date">-</p>
                         </div>
-                        <div class="temperature-display">
-                            <span id="current-temp" class="temp-large">-</span>
-                            <span class="temp-unit">°</span>
+                        <button id="favorite-btn" class="favorite-btn" aria-label="Add to favorites">
+                            <svg class="heart-outline" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                            <svg class="heart-filled" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="weather-main">
+                        <div class="temperature-section">
+                            <div class="weather-icon-large" id="current-icon">
+                                <img src="" alt="Weather icon">
+                            </div>
+                            <div class="temperature-display">
+                                <span id="current-temp" class="temp-large">-</span>
+                                <span class="temp-unit">°</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="weather-details">
-                        <h3 id="current-condition">-</h3>
-                        <p id="current-description">-</p>
-                    </div>
-                </div>
-                <div class="weather-stats">
-                    <div class="stat-item">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
-                        </svg>
-                        <div class="stat-info">
-                            <span class="stat-label">Kelembaban</span>
-                            <span id="current-humidity" class="stat-value">-%</span>
+                        <div class="weather-details">
+                            <h3 id="current-condition">-</h3>
+                            <p id="current-description">-</p>
                         </div>
                     </div>
-                    <div class="stat-item">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/>
-                        </svg>
-                        <div class="stat-info">
-                            <span class="stat-label">Kecepatan Angin</span>
-                            <span id="current-wind" class="stat-value">- km/h</span>
+                    <div class="weather-stats">
+                        <div class="stat-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                            </svg>
+                            <div class="stat-info">
+                                <span class="stat-label">Kelembaban</span>
+                                <span id="current-humidity" class="stat-value">-%</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/>
+                            </svg>
+                            <div class="stat-info">
+                                <span class="stat-label">Kecepatan Angin</span>
+                                <span id="current-wind" class="stat-value">- km/h</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="5"/>
+                                <line x1="12" y1="1" x2="12" y2="3"/>
+                                <line x1="12" y1="21" x2="12" y2="23"/>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                                <line x1="1" y1="12" x2="3" y2="12"/>
+                                <line x1="21" y1="12" x2="23" y2="12"/>
+                            </svg>
+                            <div class="stat-info">
+                                <span class="stat-label">Terasa Seperti</span>
+                                <span id="current-feels-like" class="stat-value">-°</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="stat-item">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <circle cx="12" cy="12" r="5"/>
-                            <line x1="12" y1="1" x2="12" y2="3"/>
-                            <line x1="12" y1="21" x2="12" y2="23"/>
-                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                            <line x1="1" y1="12" x2="3" y2="12"/>
-                            <line x1="21" y1="12" x2="23" y2="12"/>
-                        </svg>
-                        <div class="stat-info">
-                            <span class="stat-label">Terasa Seperti</span>
-                            <span id="current-feels-like" class="stat-value">-°</span>
-                        </div>
+                </section>
+
+                <section class="hourly-section card">
+                    <h2 class="section-title">Forecast Per 3 Jam</h2>
+                    <div id="hourly-container" class="hourly-container">
+                        <p class="loading-text">Memuat data...</p>
                     </div>
-                </div>
-            </section>
-            <section class="forecast-section">
-                <h2 class="section-title">Prakiraan 5 Hari</h2>
-                <div id="forecast-container" class="forecast-container">
-                </div>
-            </section>
-            <section class="favorites-section card">
-                <h2 class="section-title">Kota Favorit</h2>
-                <div id="favorites-container" class="favorites-container">
-                    <p class="empty-state">Belum ada kota favorit. Tambahkan kota dengan mengklik ikon ♥</p>
-                </div>
-            </section>
+                </section>
+            </div>
+
+            <div class="content-right">
+                <section class="favorites-section card">
+                    <h2 class="section-title">Kota Favorit</h2>
+                    <div id="favorites-container" class="favorites-container">
+                        <p class="empty-state">Belum ada kota favorit. Klik ♥ untuk menambahkan</p>
+                    </div>
+                </section>
+            </div>
         </main>
+
+        <section class="forecast-section">
+            <h2 class="section-title">Ramalan 5 Hari</h2>
+            <div id="forecast-container" class="forecast-container">
+            </div>
+        </section>
+
         <footer class="footer">
-            <p>&copy; 2024 Weather Dashboard. Powered by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo API</a> - Free & Open Source</p>
+            <p>Powered by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo API</a></p>
+            <p>&copy; 2025 VIAN Weather - Tugas Akhir PPW Judul 6</p>
         </footer>
     </div>
     <script src="script.js"></script>

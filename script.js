@@ -68,7 +68,8 @@ const elements = {
     currentFeelsLike: document.getElementById('current-feels-like'),
     favoriteBtn: document.getElementById('favorite-btn'),
     forecastContainer: document.getElementById('forecast-container'),
-    favoritesContainer: document.getElementById('favorites-container')
+    favoritesContainer: document.getElementById('favorites-container'),
+    hourlyContainer: document.getElementById('hourly-container')
 };
 function initApp() {
     loadPreferences();
@@ -149,11 +150,27 @@ function handleAutocomplete() {
         elements.autocompleteList.classList.remove('active');
         return;
     }
-    const matches = popularCities.filter(city => 
-        city.toLowerCase().includes(searchTerm)
-    ).slice(0, 5);
-    if (matches.length > 0) {
-        elements.autocompleteList.innerHTML = matches.map(city => 
+    
+    const matches = [];
+    
+    for (const [alias, cityName] of Object.entries(cityNameMapping)) {
+        if (alias.includes(searchTerm) || cityName.toLowerCase().includes(searchTerm)) {
+            if (!matches.includes(cityName)) {
+                matches.push(cityName);
+            }
+        }
+    }
+    
+    popularCities.forEach(city => {
+        if (city.toLowerCase().includes(searchTerm) && !matches.includes(city)) {
+            matches.push(city);
+        }
+    });
+    
+    const limitedMatches = matches.slice(0, 8);
+    
+    if (limitedMatches.length > 0) {
+        elements.autocompleteList.innerHTML = limitedMatches.map(city => 
             `<div class="autocomplete-item" data-city="${city}">${city}</div>`
         ).join('');
         elements.autocompleteList.classList.add('active');
@@ -182,14 +199,29 @@ async function fetchWeatherData(city) {
     try {
         const currentWeather = await fetchCurrentWeather(city);
         const forecast = await fetchForecast(city);
+        const hourlyData = await fetchHourlyForecast(city);
         updateCurrentWeather(currentWeather);
         updateForecast(forecast);
+        renderHourlyForecast(hourlyData);
+        saveWeatherCache(city, { currentWeather, forecast, hourlyData, timestamp: Date.now() });
         updateFavoriteButton();
         showLoading(false);
         elements.refreshBtn.classList.remove('loading');
     } catch (error) {
         console.error('❌ Error fetching weather data:', error);
-        showError('Gagal memuat data cuaca. Pastikan nama kota benar dan coba lagi.');
+        const cachedData = loadWeatherCache(city);
+        if (cachedData) {
+            console.log('📦 Loading from cache:', city);
+            updateCurrentWeather(cachedData.currentWeather);
+            updateForecast(cachedData.forecast);
+            if (cachedData.hourlyData) {
+                renderHourlyForecast(cachedData.hourlyData);
+            }
+            const cacheTime = new Date(cachedData.timestamp).toLocaleString('id-ID');
+            showError(`Mode Offline - Data terakhir: ${cacheTime}`);
+        } else {
+            showError('Gagal memuat data cuaca. Pastikan nama kota benar dan coba lagi.');
+        }
         showLoading(false);
         elements.refreshBtn.classList.remove('loading');
     }
@@ -311,6 +343,23 @@ async function fetchForecast(city) {
         throw error;
     }
 }
+async function fetchHourlyForecast(city) {
+    try {
+        const coords = await getCityCoordinates(city);
+        const url = `${WEATHER_API}?latitude=${coords.lat}&longitude=${coords.lon}&hourly=temperature_2m,weather_code&timezone=auto&forecast_days=2`;
+        console.log('⏰ Fetching hourly forecast for:', coords.name);
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Hourly API error: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('✅ Hourly data:', data);
+        return data.hourly;
+    } catch (error) {
+        console.error('❌ Error fetching hourly:', error);
+        throw error;
+    }
+}
 function updateCurrentWeather(data) {
     elements.currentLocation.textContent = `${data.name}, ${data.sys.country}`;
     elements.currentDate.textContent = formatDate(new Date());
@@ -342,6 +391,37 @@ function updateForecast(data) {
             <div class="forecast-description">${capitalizeWords(forecast.weather[0].description)}</div>
         </div>
     `).join('');
+}
+function renderHourlyForecast(hourlyData) {
+    if (!elements.hourlyContainer) return;
+    
+    const now = new Date();
+    const next12Hours = hourlyData.time
+        .map((time, index) => ({
+            time: new Date(time),
+            temp: hourlyData.temperature_2m[index],
+            code: hourlyData.weather_code[index]
+        }))
+        .filter(item => item.time >= now)
+        .slice(0, 8);
+
+    elements.hourlyContainer.innerHTML = next12Hours.map(item => {
+        const hour = item.time.getHours();
+        const timeStr = hour === 0 ? '00:00' : `${hour}:00`;
+        const weatherInfo = getWeatherDescription(item.code);
+        
+        return `
+            <div class="hourly-item">
+                <div class="hourly-time">${timeStr}</div>
+                <img src="${ICON_BASE_URL}/${weatherInfo.icon}@2x.png" 
+                     alt="${weatherInfo.description}" 
+                     class="hourly-icon">
+                <div class="hourly-temp">${convertTemp(item.temp)}°</div>
+            </div>
+        `;
+    }).join('');
+    
+    console.log('📊 Hourly forecast rendered');
 }
 function getDailyForecasts(list) {
     const dailyData = {};
@@ -518,6 +598,33 @@ function capitalizeWords(str) {
     return str.split(' ').map(word => 
         word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
     ).join(' ');
+}
+function saveWeatherCache(city, data) {
+    try {
+        const cacheKey = `weather_cache_${city.toLowerCase()}`;
+        localStorage.setItem(cacheKey, JSON.stringify(data));
+        console.log('💾 Weather data cached for:', city);
+    } catch (error) {
+        console.error('Failed to save cache:', error);
+    }
+}
+function loadWeatherCache(city) {
+    try {
+        const cacheKey = `weather_cache_${city.toLowerCase()}`;
+        const cached = localStorage.getItem(cacheKey);
+        if (cached) {
+            const data = JSON.parse(cached);
+            const ageHours = (Date.now() - data.timestamp) / (1000 * 60 * 60);
+            if (ageHours < 24) {
+                return data;
+            } else {
+                localStorage.removeItem(cacheKey);
+            }
+        }
+    } catch (error) {
+        console.error('Failed to load cache:', error);
+    }
+    return null;
 }
 window.addEventListener('beforeunload', () => {
     localStorage.setItem('lastCity', currentCity);
