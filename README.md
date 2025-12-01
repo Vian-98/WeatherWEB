@@ -5,16 +5,17 @@ Aplikasi web cuaca interaktif yang menampilkan informasi cuaca real-time dengan 
 ## 📸 Screenshot
 
 ### Light Mode
-<img width="1906" height="918" alt="Screenshot 2025-12-01 204554" src="https://github.com/user-attachments/assets/8df5363e-237c-4af2-8b24-3ba9b78b9b23" />
-
-### Dark Mode
-<img width="1909" height="914" alt="Screenshot 2025-12-01 204605" src="https://github.com/user-attachments/assets/b1a88c8d-4dd7-485b-8978-08f3cc0eed58" />
-
-### Search Feature
 <img width="1919" height="920" alt="Screenshot 2025-12-01 204638" src="https://github.com/user-attachments/assets/4c612995-7fcd-41a8-bf8a-123a224c693d" />
 
-### 5-Day Forecast
+### Dark Mode
+
+<img width="1906" height="918" alt="Screenshot 2025-12-01 204554" src="https://github.com/user-attachments/assets/8df5363e-237c-4af2-8b24-3ba9b78b9b23" />
+
+### Search Feature
 <img width="1919" height="917" alt="Screenshot 2025-12-01 204814" src="https://github.com/user-attachments/assets/5716f6c6-52cc-4c75-8406-8a3f4f65c0a5" />
+
+### 5-Day Forecast
+<img width="1909" height="914" alt="Screenshot 2025-12-01 204605" src="https://github.com/user-attachments/assets/b1a88c8d-4dd7-485b-8978-08f3cc0eed58" />
 
 ### Keterangan Sedang Memuat
 <img width="1911" height="918" alt="Screenshot 2025-12-01 204855" src="https://github.com/user-attachments/assets/ea243e5a-7cec-484c-8df5-b6bcb5e78c4f" />
